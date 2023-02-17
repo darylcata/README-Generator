@@ -1,35 +1,10 @@
 // function to generate markdown for README
 function generateMarkdown(data) {
-  // Generate Table of Contents conditionally based on userResponses
-  let TableOfContents = `## Table of Contents`;
-
-  if (data.installation !== '') {
-    TableOfContents += `
- * [Installation](#installation)` };
-
-  if (data.usage !== '') {
-    TableOfContents += `
- * [Usage](#usage)` };
-
-  if (data.license !== '') {
-    TableOfContents += `
-  * [License](#license)` };
-
-  if (data.contributing !== '') {
-    TableOfContents += `
- * [Contributing](#contributing)` };
-
-  if (data.tests !== '') {
-    TableOfContents += `
- * [Tests](#tests)` };
-
-  TableOfContents += `
- * [Questions](#questions)`
 
   // This is how readme will look like
 
   let markDown =
-`# ${data.title}
+    `# ${data.title}
 
 [![License: ${data.license}](https://img.shields.io/badge/License-${data.license}-blue.svg)](https://opensource.org/licenses/${data.license})
 
@@ -39,38 +14,52 @@ function generateMarkdown(data) {
  
  ${data.description}`
 
-// This will add table of contents to the readme file
-markDown += TableOfContents;
+  // This will add table of contents to the readme file
+  markDown += `
+## Table of Contents
 
-markDown += `
+* [Installation](#installation)
+
+* [Usage](#usage)
+
+* [License](#license)
+
+* [Contributing](#contributing)
+
+* [Tests](#tests)
+
+* [Questions](#questions)`
+
+  // Installation section
+  markDown += `
 ## Installation
  
 To install necessary dependencies, run the following command:
  
       ${data.installation}`
 
-// Usage section
-markDown += `
+  // Usage section
+  markDown += `
 ## Usage 
 
 You can use this applicaiton by running \`${data.usage}\`.`
 
-//License section
-markDown += `
+  //License section
+  markDown += `
 ## License
  
 This project's license is licensed under the ${data.license} license.`
 
-//Contributing section
-markDown += `
+  //Contributing section
+  markDown += `
 ## Contributing
  
 For any contributions, please follow these guidelines:
 
  ${data.contributing}`
 
-//Tests section
-markDown += `
+  //Tests section
+  markDown += `
 ## Tests
  
  To run tests, run the following command:
@@ -78,14 +67,14 @@ markDown += `
       ${data.tests}`
 
 
-// Questions / About Developer section
-markDown += `
+  // Questions / About Developer section
+  markDown += `
 ## Questions?
 
 If you have any questions about the repo, open an issue or contact me directly at ${data.email}. 
 You can find more of my work at [https://github.com/${data.username}](https://github.com/${data.username})`;
 
-// Return markdown
+  // Return markdown
   return markDown;
 }
 
