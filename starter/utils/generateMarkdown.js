@@ -11,6 +11,10 @@ function generateMarkdown(data) {
     TableOfContents += `
  * [Usage](#usage)` };
 
+  if (data.license !== '') {
+    TableOfContents += `
+  * [License](#license)` };
+
   if (data.contributing !== '') {
     TableOfContents += `
  * [Contributing](#contributing)` };
@@ -19,14 +23,15 @@ function generateMarkdown(data) {
     TableOfContents += `
  * [Tests](#tests)` };
 
+  TableOfContents += `
+ * [Questions](#questions)`
 
   // This is how readme will look like
+
   let markDown =
+`# ${data.title}
 
-    //license badge
-    `[![License](https://img.shields.io/badge/${data.license}-blue.svg)](https://opensource.org/licenses/${data.license})
-
-    # ${data.title}
+[![License: ${data.license}](https://img.shields.io/badge/License-${data.license}-blue.svg)](https://opensource.org/licenses/${data.license})
 
  ## Description 
  
@@ -34,81 +39,53 @@ function generateMarkdown(data) {
  
  ${data.description}`
 
-  // This will add table of contents to the readme file
-  markDown += TableOfContents;
+// This will add table of contents to the readme file
+markDown += TableOfContents;
 
-  // Optional Installation section
-  if (data.installation !== '') {
-
-    markDown +=
-
-      `## Installation
+markDown += `
+## Installation
  
-These are the steps needed to install the project:
+To install necessary dependencies, run the following command:
  
- ${data.installation}`
+      ${data.installation}`
 
-  };
-  // sage section
-  if (data.usage !== '') {
+// Usage section
+markDown += `
+## Usage 
 
-    markDown +=
+You can use this applicaiton by running \`${data.usage}\`.`
 
-      `## Usage 
- ${data.usage}`
-  };
- ` ## License
+//License section
+markDown += `
+## License
  
-  This project's license is ${data.license}
-  `;
+This project's license is licensed under the ${data.license} license.`
 
-  // Optional Contributing section
-  if (data.contributing !== '') {
-
-    markDown +=
-
-`## Contributing
+//Contributing section
+markDown += `
+## Contributing
  
 For any contributions, please follow these guidelines:
 
  ${data.contributing}`
-  };
 
-  // Optional Tests section
-  if (data.tests !== '') {
-
-    markDown +=
-      `
+//Tests section
+markDown += `
+## Tests
  
- ## Tests
+ To run tests, run the following command:
  
- *Tests for application and how to run them:*
- 
- ${userResponses.tests}`
-  };
+      ${data.tests}`
 
-  // Questions / About Developer section
-  let devInfo =
-    `
- ---
- 
- ## Questions?
 
- For any questions, please contact me with the information below:
+// Questions / About Developer section
+markDown += `
+## Questions?
 
- GitHub: [github.com/${data.username}](${data.url})`;
+If you have any questions about the repo, open an issue or contact me directly at ${data.email}. 
+You can find more of my work at [https://github.com/${data.username}](https://github.com/${data.username})`;
 
-  // If GitHub email is not null, add to Developer section
-  if (data.email !== null) {
-
-    devInfo +=
-      `
- Email: ${data.email}`};
-
-  // Add developer section to markdown
-  markDown += devInfo;
-
-  // Return markdown
+// Return markdown
   return markDown;
 }
 

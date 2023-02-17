@@ -1,30 +1,31 @@
 const fs = require("fs");
 const path = require('path');
 const inquirer = require("inquirer");
-const generateMarkdown = require("./utils/generateMarkdown");
+const generateMarkdown = require("./starter/utils/generateMarkdown");
 
-// array of questions for user
+// array of questions to prompt user for data
 const questions = [
     {
         type: 'input',
         name: 'username',
         message: 'What is your Github username?',
-        validate: function (userInput){
-            if(userInput === null)
-        return console.log("Please enter a username")}
+        validate: function (userInput) {
+            if (userInput.length < 1) {
+                return console.log("Please enter a username");
+            }
+            return true;
+        },
     },
     {
         type: 'input',
         name: 'email',
         message: 'What is your email?',
-        validate: function (userInput){
-            if(userInput === null)
-        return console.log("Please enter an email address")}
-    },
-    {
-        type: 'input',
-        name: 'github',
-        message: 'What is the name of your Github repo?',
+        validate: function (userInput) {
+            if (userInput < 1) {
+                return console.log("Please enter an email address");
+            }
+            return true;
+        },
     },
     {
         type: 'input',
@@ -39,12 +40,14 @@ const questions = [
     {
         type: 'input',
         name: 'installation',
-        message: 'What were the steps required for the Installation of your project?',
+        message: 'What will be the command used to install the project?',
+        default: 'npm install'
     },
     {
         type: 'input',
         name: 'usage',
-        message: 'How will this project be used?',
+        message: 'What command will is used to run the application?',
+        default: "node index.js"
     },
     {
         type: 'list',
@@ -56,11 +59,7 @@ const questions = [
         type: 'input',
         name: 'contributing',
         message: 'How can other developers contribute to your project?',
-    },
-    {
-        type: 'input',
-        name: 'usage',
-        message: 'How will this project be used?',
+        default: "Fork and Pull request"
     },
     {
         type: 'input',
@@ -68,27 +67,27 @@ const questions = [
         message: 'What will be the command used to test the project?',
         default: 'npm test'
     },
-    {
-        type: 'input',
-        name: 'install',
-        message: 'What will be the command used to install the project?',
-        default: 'npm install'
-    },
 ];
 
 
 // function to write README file
 function writeToFile(fileName, data) {
-    const filename = `${data.name.toLowerCase().split(' ').join('')}.md`;
 
-    fs.writeFile(filename, JSON.stringify(data, null, '\t'), (err) =>
-        err ? console.log(err) : console.log('Success!')
+    fs.writeFile(fileName, data, (err) =>
+        err ? console.log(err) : console.log('Success! Your README.md file has been generated')
     );
 }
 
 // function to initialize program
-function init() {
-    inquirer.prompt(questions).then(writeToFile(data));
+async function init() {
+
+    // user is prompted questions
+    const data = await inquirer.prompt(questions);
+
+    console.log("Generating your README based on your answers ...");
+    const makeReadMe = generateMarkdown(data);
+
+    await writeToFile('newREADME.md', makeReadMe);
 };
 
 // function call to initialize program
