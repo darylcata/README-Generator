@@ -13,6 +13,8 @@
 
 * [Usage](#usage)
 
+* [Mock up](#mock up)
+
 * [License](#license)
 
 * [Contributing](#contributing)
@@ -28,6 +30,13 @@ To install necessary dependencies, run the following command:
 ## Usage 
 
 You can use this applicaiton by running `node index.js`.
+
+## Mock up
+
+
+https://user-images.githubusercontent.com/117319952/221300762-ffb9331d-f7da-4d0c-b609-2be3e90410cd.mp4
+
+
 ## License
  
 This project's license is licensed under the MIT license.
