@@ -13,7 +13,7 @@
 
 * [Usage](#usage)
 
-* [Mock up](#mock up)
+* [Mock up](#mock-up)
 
 * [License](#license)
 
